@@ -80,4 +80,31 @@ O Client ID do MQTTX deve ser diferente do utilizado pela ESP32. O código gera 
 
 ## Funcionamento
 
-1. A ESP32 conecta
+1. A ESP32 conecta-se ao Wi-Fi e ao broker MQTT.
+2. Envia um pulso de 10 microssegundos ao pino TRIG.
+3. Mede a duração do pulso recebido no ECHO, com espera máxima de 30.000 microssegundos.
+4. Calcula a distância usando a fórmula:
+
+```text
+Distância (cm) = duração (µs) × 0,0343 ÷ 2
+```
+
+5. Descarta leituras sem resposta ou fora da faixa de **2 a 400 cm**.
+6. Publica as leituras válidas aproximadamente uma vez por segundo.
+
+As mensagens contêm apenas o valor numérico com uma casa decimal, como `25.4`, representando **25,4 cm**. A publicação utiliza **QoS 0 e sem retenção**.
+
+O programa também mantém o processamento MQTT e realiza tentativas de reconexão quando necessário.
+
+## Como testar
+
+- Conecte o MQTTX ao broker e assine o tópico da equipe.
+- Ligue a ESP32 e acompanhe as mensagens no Monitor Serial.
+- Posicione um objeto plano na frente do sensor.
+- Aproxime e afaste o objeto para observar a variação da distância.
+- Confira se as leituras aparecem no MQTTX.
+- Retire o objeto do alcance para verificar o descarte das leituras inválidas.
+
+## Observações
+O broker utilizado é público e a conexão na porta 1883 não possui criptografia. Envie apenas as leituras da atividade, sem dados pessoais ou credenciais.
+O código foi preparado conforme o enunciado da prática. A compilação e o funcionamento com os componentes devem ser verificados na bancada.
