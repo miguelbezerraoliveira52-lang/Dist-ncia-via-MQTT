@@ -10,12 +10,13 @@ Materiais
 - Arduino IDE e MQTTX Desktop.
 Montagem
 Monte com o USB desconectado.
-Componente	Ligação
-VCC do HC-SR04	5 V da ESP32
-GND do HC-SR04	GND da ESP32
-TRIG do HC-SR04	GPIO18
-ECHO do HC-SR04	Resistor de 1 kΩ até o nó do GPIO19
-Nó do GPIO19	Resistor de 2 kΩ até o GND
+| Componente | Ligação |
+|---|---|
+| VCC do HC-SR04 | 5 V da ESP32 |
+| GND do HC-SR04 | GND da ESP32 |
+| TRIG do HC-SR04 | GPIO18 |
+| ECHO do HC-SR04 | Resistor de 1 kΩ até o nó do GPIO19 |
+| Nó do GPIO19 | Resistor de 2 kΩ até o GND |
 
 
 O resistor de 1 kΩ fica entre ECHO e GPIO19; o de 2 kΩ fica entre GPIO19 e GND. Esse divisor reduz o sinal de aproximadamente 5 V para 3,33 V. Não conecte ECHO diretamente à ESP32. Todos os terras devem estar conectados.
@@ -27,16 +28,16 @@ Preparação no Arduino IDE
 5. Em MQTT_TOPICO, substitua equipe01-a7f2 por um identificador exclusivo da equipe.
 6. Selecione a placa correspondente à sua ESP32 e a porta USB.
 7. Verifique o código, envie à placa e abra o Monitor Serial em 115200 baud.
-Configuração do MQTTX
-Campo	Valor
-Transporte	MQTT sobre TCP
-Host	broker.hivemq.com
-Porta	1883
-Versão	MQTT 3.1.1
-TLS/SSL	Desativado
-Usuário e senha	Em branco
-Client ID	Um identificador exclusivo para o computador
-QoS da assinatura	0
+| Campo | Valor |
+|---|---|
+| Transporte | MQTT sobre TCP |
+| Host | broker.hivemq.com |
+| Porta | 1883 |
+| Versão | MQTT 3.1.1 |
+| TLS/SSL | Desativado |
+| Usuário e senha | Em branco |
+| Client ID | Um identificador exclusivo para o computador |
+| QoS da assinatura | 0 |
 
 
 Após conectar, crie uma assinatura com o mesmo tópico definido em MQTT_TOPICO, respeitando maiúsculas e minúsculas.
@@ -60,14 +61,15 @@ Teste na bancada
 4. Mova o objeto e observe as mudanças no MQTTX.
 5. Retire o objeto do alcance: leituras inválidas devem ser descartadas.
 6. Interrompa e restabeleça a rede para observar a reconexão.
-Problemas comuns
-Problema	Verificação
-PubSubClient.h não encontrado	Instale a biblioteca PubSubClient
-WiFi.h não encontrado	Confira o suporte à ESP32 e a placa selecionada
-Wi-Fi não conecta	Confira SSID, senha e rede de 2,4 GHz
-MQTTX não recebe	Confira broker, porta e tópico exato; conecte e depois assine
-Leituras inválidas	Confira alimentação, divisor, GND, pinos e posição do objeto
-Monitor Serial ilegível	Selecione 115200 baud
+| Problema | Verificação |
+|---|---|
+| PubSubClient.h não encontrado | Instale a biblioteca PubSubClient |
+| WiFi.h não encontrado | Confira o suporte à ESP32 e a placa selecionada |
+| Wi-Fi não conecta | Confira SSID, senha e rede de 2,4 GHz |
+| MQTTX não recebe | Confira broker, porta e tópico exato; conecte e depois assine |
+| Leituras inválidas | Confira alimentação, divisor, GND, pinos e posição do objeto |
+| Monitor Serial ilegível | Selecione 115200 baud |
+
 
 
 Observações
